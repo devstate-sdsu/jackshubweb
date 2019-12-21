@@ -1,1 +1,2 @@
-<p>Hello</p>
+<p *ngFor="let event of events$ | async">{{ event.name }}</p>
+<button (click)="add()">Add</button>
