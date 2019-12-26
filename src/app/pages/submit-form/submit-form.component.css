@@ -1,0 +1,13 @@
+form {
+  padding: 0 15px 0 15px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+form > * {
+  flex: 1 100%;
+}
+
+form > .small-item {
+  flex: 1 50% !important;
+}
