@@ -1,4 +1,4 @@
-<form #eventForm="ngForm">
+<form (ngSubmit)="submit()" #eventForm="ngForm">
   <h1>Submit an Event</h1>
   <mat-form-field>
     <mat-label>Name</mat-label>
@@ -6,11 +6,11 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label>Summary</mat-label>
-    <textarea matInput name="summary"></textarea>
+    <textarea matInput [(ngModel)]="event.summary" name="summary"></textarea>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Description</mat-label>
-    <textarea matInput name="description"></textarea>
+    <textarea matInput [(ngModel)]="event.description" name="description"></textarea>
   </mat-form-field>
   <div>
     <input
@@ -20,28 +20,28 @@
       (change)="imageChange($event, imageText)"
       accept="image/*"
       name="image"/>
-    <button mat-mini-fab (click)="imageFile.click()">Img</button>
+    <button mat-mini-fab type="button" (click)="imageFile.click()">Img</button>
     <p #imageText></p>
   </div>
   <mat-form-field>
     <mat-label>Start Time</mat-label>
-    <input matInput [matDatepicker]="startPicker" name="startTime">
+    <input matInput [(ngModel)]="event.startTime" [matDatepicker]="startPicker" name="startTime">
     <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
     <mat-datepicker #startPicker></mat-datepicker>
   </mat-form-field>
   <mat-form-field>
     <mat-label>End Time</mat-label>
-    <input matInput [matDatepicker]="endPicker" name="endTime">
+    <input matInput [(ngModel)]="event.endTime" [matDatepicker]="endPicker" name="endTime">
     <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
     <mat-datepicker #endPicker></mat-datepicker>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Big Location</mat-label>
-    <input matInput name="bigLocation"/>
+    <input matInput [(ngModel)]="event.bigLocation" name="bigLocation"/>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Small Location</mat-label>
-    <input matInput name="smallLocation"/>
+    <input matInput [(ngModel)]="event.tinyLocation" name="tinyLocation"/>
   </mat-form-field>
-  <button mat-button (click)="add()">Add</button>
+  <button mat-button type="submit">Add</button>
 </form>

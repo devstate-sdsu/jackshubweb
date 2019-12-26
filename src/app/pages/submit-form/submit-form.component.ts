@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JacksEvent } from 'src/app/models/event.model';
+import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'app-submit-form',
@@ -8,8 +9,9 @@ import { JacksEvent } from 'src/app/models/event.model';
 })
 export class SubmitFormComponent implements OnInit {
   event: JacksEvent;
+  selectedImage: File;
 
-  constructor() {}
+  constructor(private eventService: EventService) {}
 
   ngOnInit() {
     // set default values here
@@ -31,11 +33,13 @@ export class SubmitFormComponent implements OnInit {
     const selectedFiles: File[] = event.target.files;
 
     if (selectedFiles.length) {
+      this.selectedImage = selectedFiles[0];
       textEl.innerHTML = selectedFiles[0].name;
     }
   }
 
-  add() {
-    console.log(this.event);
+  submit() {
+    this.event.timeUpdated = new Date();
+    this.eventService.addEvent(this.event, this.selectedImage);
   }
 }
