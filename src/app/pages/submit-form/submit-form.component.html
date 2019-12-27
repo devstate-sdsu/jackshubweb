@@ -1,47 +1,96 @@
-<form (ngSubmit)="submit()" #eventForm="ngForm">
+<form (ngSubmit)="submit(eventForm)" #eventForm="ngForm">
   <h1>Submit an Event</h1>
-  <mat-form-field>
+  <mat-form-field class="flex-row">
     <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="event.name" name="name"/>
+    <input matInput required [(ngModel)]="event.name" name="name"/>
   </mat-form-field>
-  <mat-form-field>
-    <mat-label>Summary</mat-label>
-    <textarea matInput [(ngModel)]="event.summary" name="summary"></textarea>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Description</mat-label>
-    <textarea matInput [(ngModel)]="event.description" name="description"></textarea>
-  </mat-form-field>
-  <div>
+  <div class="flex-row">
+    <mat-form-field>
+      <mat-label>Summary</mat-label>
+      <textarea matInput [(ngModel)]="event.summary" name="summary"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea matInput [(ngModel)]="event.description" name="description"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="flex-row">
     <input
       #imageFile
+      [(ngModel)]="event.image"
       type="file"
       hidden="true"
-      (change)="imageChange($event, imageText)"
+      (change)="imageChange($event)"
       accept="image/*"
       name="image"/>
-    <button mat-mini-fab type="button" (click)="imageFile.click()">Img</button>
-    <p #imageText></p>
+    <button mat-mini-fab type="button" (click)="imageFile.click()">
+      <mat-icon>add_photo_alternate</mat-icon>
+    </button>
+    <p>{{ selectedImage ? selectedImage.name : 'No Image Selected'}}</p>
   </div>
-  <mat-form-field>
-    <mat-label>Start Time</mat-label>
-    <input matInput [(ngModel)]="event.startTime" [matDatepicker]="startPicker" name="startTime">
-    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-    <mat-datepicker #startPicker></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>End Time</mat-label>
-    <input matInput [(ngModel)]="event.endTime" [matDatepicker]="endPicker" name="endTime">
-    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-    <mat-datepicker #endPicker></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Big Location</mat-label>
-    <input matInput [(ngModel)]="event.bigLocation" name="bigLocation"/>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Small Location</mat-label>
-    <input matInput [(ngModel)]="event.tinyLocation" name="tinyLocation"/>
-  </mat-form-field>
-  <button mat-button type="submit">Add</button>
+  <mat-checkbox #allDay (change)="allDayChange($event.checked)">All Day Event</mat-checkbox>
+  <div class="flex-row">
+    <mat-form-field>
+      <mat-label>Start Date</mat-label>
+      <input
+        matInput
+        required
+        [(ngModel)]="event.startTime"
+        [matDatepicker]="startPicker"
+        [min]="startDate"
+        [max]="event.endTime"
+        name="startDate"/>
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field *ngIf="!allDay.checked">
+      <mat-label>Start Time</mat-label>
+      <input
+        matInput
+        [(ngModel)]="event.startTime"
+        [matTimeSelect]="startTimeSelect"
+        [max]="event.endTime"
+        name="startTime"/>
+      <mat-time-select-toggle matSuffix [for]="startTimeSelect"></mat-time-select-toggle>
+      <mat-time-select #startTimeSelect></mat-time-select>
+    </mat-form-field>
+  </div>
+  <div class="flex-row">
+    <mat-form-field>
+      <mat-label>End Date</mat-label>
+      <input
+        required
+        matInput
+        [(ngModel)]="event.endTime"
+        [matDatepicker]="endPicker"
+        [min]="event.startTime || startDate"
+        name="endDate"/>
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field *ngIf="!allDay.checked">
+      <mat-label>End Time</mat-label>
+      <input
+        matInput
+        [(ngModel)]="event.endTime"
+        [matTimeSelect]="endTimeSelect"
+        [min]="event.startTime"
+        name="endTime"/>
+      <mat-time-select-toggle matSuffix [for]="endTimeSelect"></mat-time-select-toggle>
+      <mat-time-select #endTimeSelect></mat-time-select>
+    </mat-form-field>
+  </div>
+  <div class="flex-row">
+    <mat-form-field>
+      <mat-label>Big Location</mat-label>
+      <input matInput required [(ngModel)]="event.bigLocation" name="bigLocation"/>
+      <mat-icon matSuffix>zoom_out_map</mat-icon>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Small Location</mat-label>
+      <input matInput [(ngModel)]="event.tinyLocation" name="tinyLocation"/>
+      <mat-icon matSuffix>my_location</mat-icon>
+    </mat-form-field>
+  </div>
+  <div><button mat-button type="submit">Submit</button></div>
 </form>
