@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { JacksEvent } from 'src/app/models/event.model';
 import { EventService } from '../../services/event.service';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-submit-form',
@@ -14,7 +15,7 @@ export class SubmitFormComponent implements OnInit {
 
   startDate = new Date();
 
-  constructor(private eventService: EventService) {}
+  constructor(private eventService: EventService, private router: Router) {}
 
   ngOnInit() {
     // set default values here
@@ -50,7 +51,8 @@ export class SubmitFormComponent implements OnInit {
   submit(eventForm: NgForm) {
     if (eventForm.valid) {
       this.event.timeUpdated = new Date();
-      this.eventService.addEvent(this.event, this.selectedImage);
+      this.eventService.addEvent(this.event, this.selectedImage)
+        .then(() => this.router.navigate(['']));
     }
   }
 }
