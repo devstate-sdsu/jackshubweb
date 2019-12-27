@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { collectionName, JacksEvent } from '../models/event.model';
+import { JacksEvent } from '../models/event.model';
 import { map } from 'rxjs/operators';
 import { mapToSnakeCase, mapToCamelCase } from '../util/helpers';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({ providedIn: 'root'})
@@ -22,6 +23,6 @@ export class EventService {
   }
 
   private getEventCollection() {
-     return this.db.collection<JacksEvent>(collectionName);
+     return this.db.collection<JacksEvent>(environment.eventsCollection);
   }
 }
