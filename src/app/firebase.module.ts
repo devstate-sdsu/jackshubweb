@@ -18,9 +18,9 @@ const config = {
   imports: [
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule, // firestore
+    AngularFireStorageModule // storage
     // bring these in later if needed
     // AngularFireAuthModule, // auth
-    // AngularFireStorageModule // storage
   ],
   declarations: [],
   bootstrap: []
