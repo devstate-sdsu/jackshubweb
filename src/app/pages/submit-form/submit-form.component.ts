@@ -15,22 +15,24 @@ export class SubmitFormComponent implements OnInit {
 
   startDate = new Date();
 
+  defaultValue = {
+    name: '',
+    description: '',
+    summary: '',
+    bigLocation: '',
+    tinyLocation: '',
+    image: '',
+    startTime: null,
+    endTime: null,
+    timeUpdated: null,
+    updates: 'submitted from webapp'
+  };
+
   constructor(private eventService: EventService, private router: Router) {}
 
   ngOnInit() {
     // set default values here
-    this.event = {
-      name: '',
-      description: '',
-      summary: '',
-      bigLocation: '',
-      tinyLocation: '',
-      image: '',
-      startTime: null,
-      endTime: null,
-      timeUpdated: null,
-      updates: 'submitted from webapp'
-    };
+    this.event = this.defaultValue;
   }
 
   imageChange(event: any) {

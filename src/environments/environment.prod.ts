@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  eventsCollection: 'eventsCol'
+  eventsCollection: 'eventsCol',
+  eventThumbnailsPath: 'eventThumbnails'
 };
