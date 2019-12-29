@@ -21,17 +21,46 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: npm run lint
-      - run: npm test
-      - run: npm run build
+      - run: 
+          name: Linting app
+          command: npm run lint
+      - run:
+          name: Running jasmine unit tests
+          command: npm test
+
+      - run:
+          name: Building app
+          command: |
+              if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              npm run build-prod
+              else
+              npm run build-dev
+              fi
+
+      - save_cache:
+          paths:
+            - dist
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
   deploy-prod:
     docker:
       - image: circleci/node:10.16.3-browsers
     
-    working_directory: /tmp/repo
+    working_directory: ~/repo
     steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - restore_cache:
+          keys:
+          - v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          - v1-dist-{{ .Environment.CIRCLE_BRANCH }}-
+          - v1-dist-
+
       - run:
-          name: Deploy app to firebase
+          name: Deploying app to firebase
           command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
 
 workflows:
