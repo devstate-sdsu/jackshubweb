@@ -31,8 +31,8 @@ jobs:
     working_directory: /tmp/repo
     steps:
       - run:
-        name: Deploy app to firebase
-        command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+          name: Deploy app to firebase
+          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
 
 workflows:
   version: 2
