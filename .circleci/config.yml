@@ -35,6 +35,7 @@ jobs:
               npm run build-prod
               else
               npm run build-dev
+              fi
 
       - save_cache:
           paths:
