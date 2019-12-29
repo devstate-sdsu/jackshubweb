@@ -22,7 +22,7 @@ export class EventService {
     console.log(eventData);
     if (imgFile) {
       // upload image
-      const snapshot = await this.storage.upload(`eventThumbnails/${imgFile.name}`, imgFile);
+      const snapshot = await this.storage.upload(`${environment.eventThumbnailsPath}/${imgFile.name}`, imgFile);
 
       // update image path
       eventData.image = await snapshot.ref.getDownloadURL();

@@ -28,7 +28,7 @@
     </button>
     <p>{{ selectedImage ? selectedImage.name : 'No Image Selected'}}</p>
   </div>
-  <mat-checkbox #allDay (change)="allDayChange($event.checked)">All Day Event</mat-checkbox>
+  <mat-checkbox #allDay id="allDay" (change)="allDayChange($event.checked)">All Day Event</mat-checkbox>
   <div class="flex-row">
     <mat-form-field>
       <mat-label>Start Date</mat-label>

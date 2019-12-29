@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  eventsCollection: 'testEventsCol'
+  eventsCollection: 'testEventsCol',
+  eventThumbnailsPath: 'testEventThumbnails'
 };
 
 /*
