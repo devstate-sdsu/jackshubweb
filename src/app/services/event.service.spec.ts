@@ -2,7 +2,7 @@ import { configureTestSuite } from 'ng-bullet';
 import { TestBed, async } from '@angular/core/testing';
 import { EventService } from './event.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFirestoreJacksEventStub, AngularFireStorageStub, mockJacksEvent, mockImageFile } from '../models/testing.model';
+import { AngularFirestoreJacksEventStub, AngularFireStorageStub, mockJacksEvent, mockImageFile } from '../models/testing.model.spec';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { JacksEvent } from '../models/event.model';
