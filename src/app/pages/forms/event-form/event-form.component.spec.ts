@@ -135,9 +135,12 @@ describe('SubmitFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should reset event startTime and endTime to null', () => {
-        expect(component.event.startTime).toBeNull();
-        expect(component.event.endTime).toBeNull();
+      it('should reset event startTime and endTime to 12:00AM', () => {
+        const actualStartTime = component.event.startTime.getHours();
+        const actualEndTime = component.event.endTime.getHours();
+
+        expect(actualStartTime).toBe(0);
+        expect(actualEndTime).toBe(0);
       });
 
       it('should hide startTime and endTime inputs', () => {
