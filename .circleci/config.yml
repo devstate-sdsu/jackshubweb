@@ -34,7 +34,7 @@ jobs:
               if [ "${CIRCLE_BRANCH}" == "master" ]; then
               npm run build-prod
               else
-              npm run build-prod
+              npm run build-dev
               fi
 
       - save_cache:
@@ -69,5 +69,7 @@ workflows:
     jobs:
       - build
       - deploy-prod:
-          requires: 
-            - build
+          requires: build
+          filters:
+            branches:
+              only: master
