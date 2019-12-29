@@ -1,6 +1,6 @@
 import { configureTestSuite } from 'ng-bullet';
-import { TestBed, ComponentFixture, async, fakeAsync, tick } from '@angular/core/testing';
-import { SubmitFormComponent } from './submit-form.component';
+import { TestBed, ComponentFixture, async } from '@angular/core/testing';
+import { EventFormComponent } from './event-form.component';
 import { MatTimeSelectModule, MatNativeTimeModule } from 'ngx-material-time-select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HomeStubComponent, EventServiceStub, mockJacksEvent, mockImageFile } from 'src/app/models/testing.model.spec';
 import { EventService } from 'src/app/services/event.service';
@@ -21,7 +21,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 describe('SubmitFormComponent', () => {
   configureTestSuite(() => {
     TestBed.configureTestingModule({
-      declarations: [SubmitFormComponent, HomeStubComponent],
+      declarations: [EventFormComponent, HomeStubComponent],
       imports: [
         NoopAnimationsModule,
         MatInputModule,
@@ -46,8 +46,8 @@ describe('SubmitFormComponent', () => {
   });
 
   // component
-  let fixture: ComponentFixture<SubmitFormComponent>;
-  let component: SubmitFormComponent;
+  let fixture: ComponentFixture<EventFormComponent>;
+  let component: EventFormComponent;
 
   // services
   let eventService: EventService;
@@ -57,7 +57,7 @@ describe('SubmitFormComponent', () => {
   let navigateSpy: jasmine.Spy;
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SubmitFormComponent);
+    fixture = TestBed.createComponent(EventFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
@@ -135,9 +135,12 @@ describe('SubmitFormComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should reset event startTime and endTime to null', () => {
-        expect(component.event.startTime).toBeNull();
-        expect(component.event.endTime).toBeNull();
+      it('should reset event startTime and endTime to 12:00AM', () => {
+        const actualStartTime = component.event.startTime.getHours();
+        const actualEndTime = component.event.endTime.getHours();
+
+        expect(actualStartTime).toBe(0);
+        expect(actualEndTime).toBe(0);
       });
 
       it('should hide startTime and endTime inputs', () => {

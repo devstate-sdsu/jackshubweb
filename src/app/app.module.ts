@@ -4,16 +4,17 @@ import { FirebaseModule } from './firebase.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { FormsModule } from '@angular/forms';
-
-import { AppComponent } from './app.component';
-import { SubmitFormComponent } from './pages/submit-form/submit-form.component';
-import { HomeComponent } from './pages/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { AppComponent } from './app.component';
+import { EventFormComponent } from './pages/forms/event-form/event-form.component';
+import { HomeComponent } from './pages/home/home.component';
+
+// bring in essential modules here
 @NgModule({
   declarations: [
     AppComponent,
-    SubmitFormComponent,
+    EventFormComponent,
     HomeComponent
   ],
   imports: [
