@@ -11,7 +11,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HomeStubComponent, EventServiceStub, mockJacksEvent, mockImageFile } from 'src/app/models/testing.model';
+import { HomeStubComponent, EventServiceStub, mockJacksEvent, mockImageFile } from 'src/app/models/testing.model.spec';
 import { EventService } from 'src/app/services/event.service';
 import { Router } from '@angular/router';
 import { DebugElement } from '@angular/core';
