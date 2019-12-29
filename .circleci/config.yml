@@ -24,6 +24,24 @@ jobs:
       - run: npm run lint
       - run: npm test
       - run: npm run build
+  deploy-prod:
+    docker:
+      - image: circleci/node:10.16.3-browsers
+    
+    working_directory: /tmp/repo
+    steps:
       - run:
-          name: Deploy app to firebase
-          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+        name: Deploy app to firebase
+        command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - build
+      - deploy-prod:
+          requires: 
+            - build
+          filters:
+            branches:
+              only: master
