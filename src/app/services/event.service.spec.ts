@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { JacksEvent } from '../models/event.model';
 import { environment } from 'src/environments/environment';
 
-fdescribe('EventService', () => {
+describe('EventService', () => {
   configureTestSuite(() => {
     TestBed.configureTestingModule({
       providers: [
