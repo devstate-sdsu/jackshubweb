@@ -1,0 +1,13 @@
+<span class="flex-row">
+  <input
+    #imageFile
+    type="file"
+    hidden="true"
+    (change)="imageChange($event)"
+    accept="image/*"
+    [multiple]="multiple"/>
+  <button mat-mini-fab [disabled]="disabled" type="button" (click)="imageFile.click()">
+    <mat-icon>add_photo_alternate</mat-icon>
+  </button>
+  <p>{{ selectedImage ? selectedImage.name : 'No Image Selected'}}</p>
+</span>

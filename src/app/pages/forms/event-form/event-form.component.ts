@@ -23,7 +23,7 @@ export class EventFormComponent implements OnInit {
     summary: '',
     bigLocation: '',
     tinyLocation: '',
-    image: '',
+    image: null, // will be set later
     startTime: null,
     endTime: null,
     timeUpdated: null,
@@ -34,14 +34,6 @@ export class EventFormComponent implements OnInit {
 
   ngOnInit() {
     this.event = this.defaultValue;
-  }
-
-  imageChange(event: any) {
-    const selectedFiles: File[] = event.target.files;
-
-    if (selectedFiles.length) {
-      this.selectedImage = selectedFiles[0];
-    }
   }
 
   allDayChange(isAllDay: boolean) {

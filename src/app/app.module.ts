@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { EventFormComponent } from './pages/forms/event-form/event-form.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ServicesFormComponent } from './pages/forms/services-form/services-form.component';
+import { ImageSelectComponent } from './pages/forms/components/image-select/image-select.component';
 
 // bring in essential modules here
 @NgModule({
@@ -17,7 +18,8 @@ import { ServicesFormComponent } from './pages/forms/services-form/services-form
     AppComponent,
     EventFormComponent,
     ServicesFormComponent,
-    HomeComponent
+    HomeComponent,
+    ImageSelectComponent
   ],
   imports: [
     BrowserModule,

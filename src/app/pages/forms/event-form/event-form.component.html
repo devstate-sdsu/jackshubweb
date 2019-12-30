@@ -15,18 +15,7 @@
     </mat-form-field>
   </div>
   <div class="flex-row">
-    <input
-      #imageFile
-      [(ngModel)]="event.image"
-      type="file"
-      hidden="true"
-      (change)="imageChange($event)"
-      accept="image/*"
-      name="image"/>
-    <button mat-mini-fab type="button" (click)="imageFile.click()">
-      <mat-icon>add_photo_alternate</mat-icon>
-    </button>
-    <p>{{ selectedImage ? selectedImage.name : 'No Image Selected'}}</p>
+    <app-image-select [(ngModel)]="selectedImage" name="image"></app-image-select>
   </div>
   <mat-checkbox #allDay id="allDay" (change)="allDayChange($event.checked)">All Day Event</mat-checkbox>
   <div class="flex-row">

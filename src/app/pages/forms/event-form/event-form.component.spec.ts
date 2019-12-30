@@ -11,17 +11,23 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HomeStubComponent, EventServiceStub, mockJacksEvent, mockImageFile } from 'src/app/models/testing.model.spec';
+import {
+  HomeStubComponent,
+  EventServiceStub,
+  mockJacksEvent,
+  mockImageFile
+} from 'src/app/models/testing.model.spec';
 import { EventService } from 'src/app/services/event.service';
 import { Router } from '@angular/router';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ImageSelectComponent } from '../components/image-select/image-select.component';
 
 describe('SubmitFormComponent', () => {
   configureTestSuite(() => {
     TestBed.configureTestingModule({
-      declarations: [EventFormComponent, HomeStubComponent],
+      declarations: [EventFormComponent, HomeStubComponent, ImageSelectComponent],
       imports: [
         NoopAnimationsModule,
         MatInputModule,
@@ -78,35 +84,6 @@ describe('SubmitFormComponent', () => {
 
     it('should initialize event model to default value', () => {
       expect(component.event).toEqual(component.defaultValue);
-    });
-  });
-
-  describe('when image selected', () => {
-    const mockImageChangeEvent = {
-      target: {
-        files: [mockImageFile]
-      }
-    };
-
-    let imageChangeSpy: jasmine.Spy;
-    let imageInput: DebugElement;
-
-    beforeEach(() => {
-      imageInput = fixture.debugElement.query(By.css('input[name=image]'));
-
-      component.imageChange(mockImageChangeEvent);
-      fixture.detectChanges();
-
-      imageChangeSpy = spyOn(component, 'imageChange').and.callThrough();
-    });
-
-    it('should call imageChange when change event emits', () => {
-      imageInput.triggerEventHandler('change', mockImageChangeEvent);
-      expect(imageChangeSpy).toHaveBeenCalledWith(mockImageChangeEvent);
-    });
-
-    it('should set selectedImage to first file in change event', () => {
-      expect(component.selectedImage).toEqual(mockImageChangeEvent.target.files[0]);
     });
   });
 
