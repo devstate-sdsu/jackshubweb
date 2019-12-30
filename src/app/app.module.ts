@@ -9,12 +9,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EventFormComponent } from './pages/forms/event-form/event-form.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ServicesFormComponent } from './pages/forms/services-form/services-form.component';
 
 // bring in essential modules here
 @NgModule({
   declarations: [
     AppComponent,
     EventFormComponent,
+    ServicesFormComponent,
     HomeComponent
   ],
   imports: [

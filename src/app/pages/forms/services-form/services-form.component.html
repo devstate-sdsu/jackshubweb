@@ -1,0 +1,13 @@
+<form #eventForm="ngForm">
+  <h1>Submit a Service</h1>
+  <mat-form-field class="flex-row">
+    <mat-label>Name</mat-label>
+    <input matInput required [(ngModel)]="service.name" name="name"/>
+  </mat-form-field>
+  <div class="flex-row">
+    <mat-form-field>
+      <mat-label>Summary</mat-label>
+      <textarea matInput [(ngModel)]="service.summary" name="summary"></textarea>
+    </mat-form-field>
+  </div>
+</form>

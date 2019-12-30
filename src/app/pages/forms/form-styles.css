@@ -1,0 +1,17 @@
+form {
+  padding: 0 15px 0 15px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+form > * {
+  flex: 1 100%;
+}
+
+.flex-row {
+  display: flex;
+}
+
+.flex-row > * {
+  margin-right: 10px;
+}

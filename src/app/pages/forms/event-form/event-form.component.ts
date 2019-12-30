@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-event-form',
   templateUrl: './event-form.component.html',
-  styleUrls: ['./event-form.component.css']
+  styleUrls: ['../form-styles.css', './event-form.component.css']
 })
 export class EventFormComponent implements OnInit {
   // data to be sent to firebase
