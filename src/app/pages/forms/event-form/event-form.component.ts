@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-event-form',
   templateUrl: './event-form.component.html',
-  styleUrls: ['./event-form.component.css']
+  styleUrls: ['../form-styles.css', './event-form.component.css']
 })
 export class EventFormComponent implements OnInit {
   // data to be sent to firebase
@@ -23,7 +23,7 @@ export class EventFormComponent implements OnInit {
     summary: '',
     bigLocation: '',
     tinyLocation: '',
-    image: '',
+    image: null, // will be set later
     startTime: null,
     endTime: null,
     timeUpdated: null,
@@ -34,14 +34,6 @@ export class EventFormComponent implements OnInit {
 
   ngOnInit() {
     this.event = this.defaultValue;
-  }
-
-  imageChange(event: any) {
-    const selectedFiles: File[] = event.target.files;
-
-    if (selectedFiles.length) {
-      this.selectedImage = selectedFiles[0];
-    }
   }
 
   allDayChange(isAllDay: boolean) {
