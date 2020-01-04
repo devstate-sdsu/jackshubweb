@@ -25,6 +25,7 @@ describe('ImageSelectComponent', () => {
 
   let imageInput: DebugElement;
   let imageButton: DebugElement;
+  let imageLabel: DebugElement;
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ImageSelectComponent);
@@ -33,6 +34,7 @@ describe('ImageSelectComponent', () => {
 
     imageInput = fixture.debugElement.query(By.css('input'));
     imageButton = fixture.debugElement.query(By.directive(MatButton));
+    imageLabel = fixture.debugElement.query(By.css('label'));
   });
 
   it('should create', () => {
@@ -53,6 +55,10 @@ describe('ImageSelectComponent', () => {
     component.disabled = true;
     fixture.detectChanges();
     expect(imageButton.nativeElement.disabled).toBe(true);
+  });
+
+  it('label should be for image button with id "imageBtn"', () => {
+    expect(imageLabel.nativeElement.htmlFor).toBe('imageBtn');
   });
 
   describe('writeValue', () => {
