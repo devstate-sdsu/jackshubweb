@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Service } from 'src/app/models/services.model';
+import { Service, ServiceCard } from 'src/app/models/services.model';
 
 @Component({
   selector: 'app-services-form',
@@ -8,12 +8,23 @@ import { Service } from 'src/app/models/services.model';
 })
 export class ServicesFormComponent implements OnInit {
   service: Service;
+  cards: ServiceCard[] = [];
+  selectedImage: File;
 
   defaultValue: Service = {
     name: '',
     summary: '',
     status: '',
-    image: ''
+    image: '',
+    bigLocation: '',
+    tinyLocation: '',
+    email: '',
+    hours: {
+      name: '',
+      days: []
+    },
+    mainInfo: '',
+    phoneNumber: ''
   };
 
   constructor() { }
@@ -22,4 +33,7 @@ export class ServicesFormComponent implements OnInit {
     this.service = this.defaultValue;
   }
 
+  submit() {
+    console.log(this.service);
+  }
 }

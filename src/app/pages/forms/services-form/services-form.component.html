@@ -4,10 +4,40 @@
     <mat-label>Name</mat-label>
     <input matInput required [(ngModel)]="service.name" name="name"/>
   </mat-form-field>
+  <mat-form-field class="flex-row">
+    <mat-label>Summary</mat-label>
+    <textarea matInput [(ngModel)]="service.summary" name="summary"></textarea>
+  </mat-form-field>
+  <app-image-select [(ngModel)]="selectedImage" name="image"></app-image-select>
   <div class="flex-row">
     <mat-form-field>
-      <mat-label>Summary</mat-label>
-      <textarea matInput [(ngModel)]="service.summary" name="summary"></textarea>
+      <mat-label>Email</mat-label>
+      <input matInput type="email" [(ngModel)]="service.email" name="email"/>
     </mat-form-field>
+    <mat-form-field>
+      <mat-label>Phone Number</mat-label>
+      <input matInput type="tel" [(ngModel)]="service.phoneNumber" name="phoneNumber"/>
+    </mat-form-field>
+  </div>
+  <mat-form-field class="flex-row">
+    <mat-label>Info</mat-label>
+    <textarea matInput [(ngModel)]="service.mainInfo" name="mainInfo"></textarea>
+  </mat-form-field>
+  <div class="flex-row">
+    <mat-form-field>
+      <mat-label>Big Location</mat-label>
+      <input matInput required [(ngModel)]="service.bigLocation" name="bigLocation"/>
+      <mat-icon matSuffix>zoom_out_map</mat-icon>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Small Location</mat-label>
+      <input matInput [(ngModel)]="service.tinyLocation" name="tinyLocation"/>
+      <mat-icon matSuffix>my_location</mat-icon>
+    </mat-form-field>
+  </div>
+  <app-hours-select [(ngModel)]="service.hours" name="hours"></app-hours-select>
+  <div class="flex-row">
+    <a mat-stroked-button routerLink="/">Cancel</a>
+    <button mat-raised-button (click)="submit()" type="submit">Submit</button>
   </div>
 </form>

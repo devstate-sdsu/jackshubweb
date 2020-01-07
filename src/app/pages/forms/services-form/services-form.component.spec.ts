@@ -4,6 +4,7 @@ import { configureTestSuite } from 'ng-bullet';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { ImageSelectComponent } from '../components/image-select/image-select.component';
 
 describe('ServicesFormComponent', () => {
   let fixture: ComponentFixture<ServicesFormComponent>;
@@ -11,7 +12,10 @@ describe('ServicesFormComponent', () => {
 
   configureTestSuite(() => {
     TestBed.configureTestingModule({
-      declarations: [ServicesFormComponent],
+      declarations: [
+        ServicesFormComponent,
+        ImageSelectComponent
+      ],
       imports: [
         NoopAnimationsModule,
         MatInputModule,

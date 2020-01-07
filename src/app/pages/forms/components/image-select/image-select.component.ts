@@ -3,11 +3,24 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'app-image-select',
-  templateUrl: './image-select.component.html',
-  styleUrls: ['../../form-styles.css', './image-select.component.css'],
+  styleUrls: ['../../form-styles.css'],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: ImageSelectComponent, multi: true }
-  ]
+  ],
+  template: `
+    <span class="flex-row">
+      <input
+        #imageFile
+        type="file"
+        hidden="true"
+        (change)="imageChange($event)"
+        accept="image/*"
+        [multiple]="multiple"/>
+      <button mat-mini-fab [disabled]="disabled" type="button" (click)="imageFile.click()" id="imageBtn">
+        <mat-icon>add_photo_alternate</mat-icon>
+      </button>
+      <label for="imageBtn">{{ selectedImage ? selectedImage.name : 'No Image Selected'}}</label>
+    </span>`
 })
 export class ImageSelectComponent implements ControlValueAccessor {
   selectedImage: File;
@@ -25,7 +38,7 @@ export class ImageSelectComponent implements ControlValueAccessor {
     this.onChange(this.selectedImage);
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (file: File) => void): void {
     this.onChange = fn;
   }
 

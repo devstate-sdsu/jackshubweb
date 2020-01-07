@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { of } from 'rxjs';
 import { JacksEvent } from './event.model';
+import { Hours } from './hours.model';
 
 // use this file to globally mock data, services, components, etc.
 // add to stubs as more functionality/data is added to the app
@@ -26,6 +27,17 @@ export const mockImageFile: File = {
   size: 0,
   type: 'image',
   slice: (s?, e?) => null
+};
+
+export const mockHours: Hours = {
+  name: 'testHours',
+  days: [{
+    day: 'testDay',
+    hours: [{
+      start: '9:00AM',
+      end: '4:00PM'
+    }]
+  }]
 };
 
 // put component stubs below
