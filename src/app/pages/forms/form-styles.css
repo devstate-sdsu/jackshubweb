@@ -1,4 +1,4 @@
-form {
+form, .form-container {
   padding: 0 15px 0 15px;
   display: flex;
   flex-flow: row wrap;

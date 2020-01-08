@@ -11,6 +11,7 @@ import { EventFormComponent } from './pages/forms/event-form/event-form.componen
 import { HomeComponent } from './pages/home/home.component';
 import { ServicesFormComponent } from './pages/forms/services-form/services-form.component';
 import { ImageSelectComponent } from './pages/forms/components/image-select/image-select.component';
+import { HoursSelectComponent } from './pages/forms/components/hours-select/hours-select.component';
 
 // bring in essential modules here
 @NgModule({
@@ -19,7 +20,8 @@ import { ImageSelectComponent } from './pages/forms/components/image-select/imag
     EventFormComponent,
     ServicesFormComponent,
     HomeComponent,
-    ImageSelectComponent
+    ImageSelectComponent,
+    HoursSelectComponent
   ],
   imports: [
     BrowserModule,

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { JacksEvent } from '../models/event.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Service } from '../models/services.model';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({ providedIn: 'root' })
 export class ServicesService {
-  constructor(private db: AngularFirestore) {}
+  constructor(private db: AngularFirestore, private storage: AngularFireStorage) {}
 
   getServices() {
     const qSnapshot = this.getServicesCollection();
@@ -22,12 +22,20 @@ export class ServicesService {
     })));
   }
 
-  getServiceCards(docId: string) {
-    const cardsCol = this.db.doc(docId).collection('cards');
-    return cardsCol.valueChanges().pipe(map(data => data as any[]));
+  async addService(serviceData: Service, imgFile?: File) {
+    if (imgFile) {
+      // upload image
+      const snapshot = await this.storage.upload(`${environment.servicesThumbnailsPath}/${imgFile.name}`, imgFile);
+
+      // update image path
+      serviceData.image = await snapshot.ref.getDownloadURL();
+    }
+
+    const qSnapshot = this.getServicesCollection();
+    qSnapshot.add(serviceData);
   }
 
   private getServicesCollection() {
-    return this.db.collection<Service[]>(environment.servicesCollection);
+    return this.db.collection<Service>(environment.servicesCollection);
   }
 }
