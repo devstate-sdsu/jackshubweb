@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   eventsCollection: 'testEventsCol',
   servicesCollection: 'testServicesCol',
-  eventThumbnailsPath: 'testEventThumbnails'
+  eventThumbnailsPath: 'testEventThumbnails',
+  servicesThumbnailsPath: 'testServiceThumbnails'
 };
 
 /*

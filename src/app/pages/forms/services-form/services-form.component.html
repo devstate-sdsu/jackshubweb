@@ -1,4 +1,4 @@
-<form #eventForm="ngForm">
+<form #eventForm="ngForm" (ngSubmit)="submit(eventForm)">
   <h1>Submit a Service</h1>
   <mat-form-field class="flex-row">
     <mat-label>Name</mat-label>
@@ -38,6 +38,6 @@
   <app-hours-select [(ngModel)]="service.hours" name="hours"></app-hours-select>
   <div class="flex-row">
     <a mat-stroked-button routerLink="/">Cancel</a>
-    <button mat-raised-button (click)="submit()" type="submit">Submit</button>
+    <button mat-raised-button type="submit">Submit</button>
   </div>
 </form>

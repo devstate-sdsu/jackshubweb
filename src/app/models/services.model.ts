@@ -5,7 +5,6 @@ export interface Service {
   name: string;
   image: string;
   summary: string;
-  status: string;
   mainInfo: string;
   email: string;
   phoneNumber: string;

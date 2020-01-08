@@ -10,7 +10,7 @@ import { mockHours } from 'src/app/models/testing.model.spec';
 import { SDate } from 'src/app/models/hours.model';
 
 
-fdescribe('HoursSelectComponent', () => {
+describe('HoursSelectComponent', () => {
   configureTestSuite(() => {
     TestBed.configureTestingModule({
       declarations: [HoursSelectComponent],

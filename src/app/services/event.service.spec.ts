@@ -63,10 +63,14 @@ describe('EventService', () => {
 
   describe('addEvent', () => {
     let uploadSpy: jasmine.Spy;
+    let newJacksEvent: JacksEvent;
 
     beforeEach(async(() => {
+      // don't want to modify actual mock object!
+      newJacksEvent = Object.create(mockJacksEvent);
+
       uploadSpy = spyOn(fireStorage, 'upload').and.callThrough();
-      service.addEvent(mockJacksEvent, mockImageFile);
+      service.addEvent(newJacksEvent, mockImageFile);
     }));
 
     it('should upload', () => {
@@ -75,7 +79,7 @@ describe('EventService', () => {
     });
 
     it('should set event image path to firebase link', () => {
-      expect(mockJacksEvent.image).toBe('firebaseLink');
+      expect(newJacksEvent.image).toBe('firebaseLink');
     });
 
     it('should get firebase events collection', () => {
