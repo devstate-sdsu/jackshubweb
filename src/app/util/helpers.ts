@@ -50,3 +50,17 @@ export function parseTimeRange(timeString: string): HoursSet {
 export function extractEnumKeys(E: object): string[] {
   return Object.keys(E).filter(k => typeof E[k as any] === 'number');
 }
+
+/**
+ * Get array of days between specified date range
+ */
+export function getDates(startDate: Date, stopDate: Date) {
+  const dateArray: Date[] = [];
+  const currentDate = startDate;
+
+  while (currentDate <= stopDate) {
+    dateArray.push(new Date(currentDate));
+    currentDate.setTime(currentDate.valueOf() + 8.64e7);
+  }
+  return dateArray;
+}
