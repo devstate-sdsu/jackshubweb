@@ -7,6 +7,7 @@ import { MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from '@angular/material/icon';
 import { MatNativeDateModule } from '@angular/material';
 import { MatNativeTimeModule, MatTimeSelectModule } from 'ngx-material-time-select';
+import { SatNativeDateModule, SatDatepickerModule } from 'saturn-datepicker';
 
 @NgModule({
   imports: [
@@ -17,6 +18,8 @@ import { MatNativeTimeModule, MatTimeSelectModule } from 'ngx-material-time-sele
     MatFormFieldModule,
     MatTimeSelectModule,
     MatNativeTimeModule,
+    SatDatepickerModule,
+    SatNativeDateModule,
     MatDatepickerModule,
     MatNativeDateModule
   ],
@@ -28,6 +31,8 @@ import { MatNativeTimeModule, MatTimeSelectModule } from 'ngx-material-time-sele
     MatFormFieldModule,
     MatTimeSelectModule,
     MatNativeTimeModule,
+    SatDatepickerModule,
+    SatNativeDateModule,
     MatDatepickerModule,
     MatNativeDateModule
   ],

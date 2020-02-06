@@ -35,7 +35,7 @@
       <mat-icon matSuffix>my_location</mat-icon>
     </mat-form-field>
   </div>
-  <app-hours-select [(ngModel)]="service.hours" name="hours"></app-hours-select>
+  <app-hours-select ngModel (ngModelChange)="hoursSelected($event)" name="hours"></app-hours-select>
   <div class="flex-row">
     <a mat-stroked-button routerLink="/">Cancel</a>
     <button mat-raised-button type="submit">Submit</button>

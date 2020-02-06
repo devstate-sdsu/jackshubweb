@@ -1,3 +1,8 @@
+export interface AllHours {
+  regularHours: Hours;
+  holidayHours: Hours[];
+}
+
 export interface Hours {
   name: string;
   trigger?: SDateRange;

@@ -3,6 +3,7 @@ import { Service } from 'src/app/models/services.model';
 import { ServicesService } from 'src/app/services/services.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Hours } from 'src/app/models/hours.model';
 
 
 // lot of similar code to events form, I think some of this can be abstracted into one form class
@@ -23,8 +24,8 @@ export class ServicesFormComponent implements OnInit {
     tinyLocation: '',
     email: '',
     hours: {
-      name: '',
-      days: []
+      regularHours: null,
+      holidayHours: []
     },
     mainInfo: '',
     phoneNumber: ''
@@ -34,6 +35,14 @@ export class ServicesFormComponent implements OnInit {
 
   ngOnInit() {
     this.service = this.defaultValue;
+  }
+
+  hoursSelected(hours: Hours[]) {
+    if (hours[0]) {
+      this.service.hours.regularHours = hours[0];
+      this.service.hours.holidayHours = hours.slice(1);
+      console.log(this.service.hours);
+    }
   }
 
   submit(serviceForm: NgForm) {

@@ -29,12 +29,19 @@ export const mockService: Service = {
   bigLocation: 'testBigLoc',
   tinyLocation: 'testTinyLoc',
   email: 'test@email.com',
-  hours: {
-    name: 'testHours',
+  hours:
+  {
+    regularHours: {
+      name: 'testHours',
+      days: [{
+        day: 'testDay',
+        hours: [{ start: '9:00PM', end: '10:00PM' }]
+    }]},
+    holidayHours: [{name: 'testHours',
     days: [{
       day: 'testDay',
       hours: [{ start: '9:00PM', end: '10:00PM' }]
-    }]
+    }]}]
   },
   mainInfo: 'testInfo',
   phoneNumber: '1234567890'

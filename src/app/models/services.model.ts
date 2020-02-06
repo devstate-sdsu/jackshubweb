@@ -1,4 +1,4 @@
-import { Hours } from './hours.model';
+import { Hours, AllHours } from './hours.model';
 
 export interface Service {
   docId?: string; // only set if getting from firebase
@@ -8,7 +8,7 @@ export interface Service {
   mainInfo: string;
   email: string;
   phoneNumber: string;
-  hours: Hours;
+  hours: AllHours;
   bigLocation: string;
   tinyLocation: string;
 }
