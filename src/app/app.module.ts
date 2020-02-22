@@ -12,6 +12,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ServicesFormComponent } from './pages/forms/services-form/services-form.component';
 import { ImageSelectComponent } from './pages/forms/components/image-select/image-select.component';
 import { HoursSelectComponent } from './pages/forms/components/hours-select/hours-select.component';
+import { MatRadioModule } from '@angular/material';
 
 // bring in essential modules here
 @NgModule({
@@ -30,6 +31,7 @@ import { HoursSelectComponent } from './pages/forms/components/hours-select/hour
     MaterialModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

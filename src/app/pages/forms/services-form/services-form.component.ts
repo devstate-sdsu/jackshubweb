@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Service } from 'src/app/models/services.model';
 import { ServicesService } from 'src/app/services/services.service';
+import { FoodService } from 'src/app/services/food.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Hours } from 'src/app/models/hours.model';
@@ -15,6 +16,7 @@ import { Hours } from 'src/app/models/hours.model';
 export class ServicesFormComponent implements OnInit {
   service: Service;
   selectedImage: File;
+  selectedService: string = 'services';
 
   defaultValue: Service = {
     name: '',
@@ -31,7 +33,11 @@ export class ServicesFormComponent implements OnInit {
     phoneNumber: ''
   };
 
-  constructor(private servicesService: ServicesService, private router: Router) { }
+  constructor(
+    private servicesService: ServicesService, 
+    private foodService: FoodService,
+    private router: Router
+    ) { }
 
   ngOnInit() {
     this.service = this.defaultValue;
@@ -48,8 +54,13 @@ export class ServicesFormComponent implements OnInit {
   submit(serviceForm: NgForm) {
     if (serviceForm.valid) {
       // upload service to firebase
-      this.servicesService.addService(this.service, this.selectedImage)
-        .then(() => this.router.navigate(['']));
+      if (this.selectedService == "food") {
+        this.foodService.addFood(this.service, this.selectedImage)
+          .then(() => this.router.navigate(['']));
+      } else {
+        this.servicesService.addService(this.service, this.selectedImage)
+          .then(() => this.router.navigate(['']));
+      }
     }
   }
 }
