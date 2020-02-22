@@ -1,5 +1,9 @@
 <form #eventForm="ngForm" (ngSubmit)="submit(eventForm)">
-  <h1>Submit a Service</h1>
+  <h1>Submit a Service or Dining Service</h1>
+  <mat-radio-group [(ngModel)]="selectedService" name="selectedService">
+    <mat-radio-button value="services">Services</mat-radio-button>
+    <mat-radio-button value="food">Food</mat-radio-button>
+  </mat-radio-group>
   <mat-form-field class="flex-row">
     <mat-label>Name</mat-label>
     <input matInput required [(ngModel)]="service.name" name="name"/>

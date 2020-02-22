@@ -4,10 +4,12 @@
 
 export const environment = {
   production: false,
+  foodCollection: 'testFoodCol',
   eventsCollection: 'testEventsCol',
   servicesCollection: 'testServicesCol',
   eventThumbnailsPath: 'testEventThumbnails',
-  servicesThumbnailsPath: 'testServiceThumbnails'
+  servicesThumbnailsPath: 'testServiceThumbnails',
+  foodThumbnailsPath: 'testFoodThumbnails'
 };
 
 /*
