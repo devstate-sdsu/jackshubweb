@@ -11,4 +11,5 @@ export interface JacksEvent {
   endTime: Date;
   timeUpdated: Date;
   updates: string;
+  tags: Array<String>;
 }

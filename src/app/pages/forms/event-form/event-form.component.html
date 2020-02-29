@@ -14,6 +14,8 @@
       <textarea matInput [(ngModel)]="event.description" name="description"></textarea>
     </mat-form-field>
   </div>
+  <mat-checkbox id="sporting-tag" value="sporting" (change)="toggleTag('sporting', $event.checked)">Sporting</mat-checkbox>
+  <mat-checkbox id="clubs-tag" value="clubs" (change)="toggleTag('clubs', $event.checked)">Clubs</mat-checkbox>
   <div class="flex-row">
     <app-image-select [(ngModel)]="selectedImage" name="image"></app-image-select>
   </div>

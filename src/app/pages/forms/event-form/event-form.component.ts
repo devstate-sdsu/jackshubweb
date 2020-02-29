@@ -17,6 +17,8 @@ export class EventFormComponent implements OnInit {
   // used by the mat calendar
   startDate = new Date();
 
+  setOfTags = new Set();
+
   defaultValue = {
     name: '',
     description: '',
@@ -27,7 +29,8 @@ export class EventFormComponent implements OnInit {
     startTime: null,
     endTime: null,
     timeUpdated: null,
-    updates: 'submitted from webapp'
+    updates: 'submitted from webapp',
+    tags: []
   };
 
   constructor(private eventService: EventService, private router: Router) {}
@@ -46,9 +49,18 @@ export class EventFormComponent implements OnInit {
     }
   }
 
+  toggleTag(tagName: String, isChecked: boolean) {
+    if (isChecked) {
+      this.setOfTags.add(tagName);
+    } else {
+      this.setOfTags.delete(tagName);
+    }
+  }
+
   submit(eventForm: NgForm) {
     if (eventForm.valid) {
       this.event.timeUpdated = new Date();
+      this.event.tags = <Array<String>>[...this.setOfTags];
 
       // upload event to firebase
       this.eventService.addEvent(this.event, this.selectedImage)
