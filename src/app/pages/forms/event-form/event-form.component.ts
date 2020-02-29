@@ -49,7 +49,7 @@ export class EventFormComponent implements OnInit {
     }
   }
 
-  toggleTag(tagName: String, isChecked: boolean) {
+  toggleTag(tagName: string, isChecked: boolean) {
     if (isChecked) {
       this.setOfTags.add(tagName);
     } else {
@@ -60,7 +60,7 @@ export class EventFormComponent implements OnInit {
   submit(eventForm: NgForm) {
     if (eventForm.valid) {
       this.event.timeUpdated = new Date();
-      this.event.tags = <Array<String>>[...this.setOfTags];
+      this.event.tags = <Array<string>>[...this.setOfTags];
 
       // upload event to firebase
       this.eventService.addEvent(this.event, this.selectedImage)

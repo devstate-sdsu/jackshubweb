@@ -20,7 +20,7 @@ import { SatDatepickerRangeValue } from 'saturn-datepicker';
       <h3 *ngIf="!i; else inputName">{{ daySet.name }} Hours</h3>
       <ng-template #inputName class="flex-row">
         <mat-form-field appearance="fill">
-          <input matInput placeholder="Holiday Name">
+          <input matInput [(ngModel)]="this.hours[i].name" placeholder="Holiday Name">
         </mat-form-field>
         <button type="button" mat-icon-button (click)="removeHoliday(i)"><mat-icon>delete</mat-icon></button>
       </ng-template>
@@ -61,6 +61,7 @@ import { SatDatepickerRangeValue } from 'saturn-datepicker';
 })
 export class HoursSelectComponent implements OnInit, ControlValueAccessor {
   hours: Hours[];
+  holidayName: string = '';
 
   @Input() disabled = false;
 
@@ -85,7 +86,7 @@ export class HoursSelectComponent implements OnInit, ControlValueAccessor {
     const value: SatDatepickerRangeValue<Date> = pickerModel.value;
     if (pickerModel.value) {
       this.hours.push({
-        name: 'holiday',
+        name: '',
         days: getDates(value.begin, value.end).map(date => {
           return {
             day: date.toDateString(),
