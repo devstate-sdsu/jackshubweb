@@ -22,7 +22,7 @@ import { SatDatepickerRangeValue } from 'saturn-datepicker';
         <mat-form-field appearance="fill">
           <input matInput placeholder="Holiday Name">
         </mat-form-field>
-        <button mat-icon-button (click)="removeHoliday(i)"><mat-icon>delete</mat-icon></button>
+        <button type="button" mat-icon-button (click)="removeHoliday(i)"><mat-icon>delete</mat-icon></button>
       </ng-template>
       <div *ngFor="let day of daySet.days; let j = index" class="flex-row">
         <mat-checkbox
@@ -46,7 +46,7 @@ import { SatDatepickerRangeValue } from 'saturn-datepicker';
       </div>
     </div>
     <span class="flex-row">
-      <button mat-stroked-button (click)="picker.open()">Add Holiday Hours</button>
+      <button type="button" mat-stroked-button (click)="picker.open()">Add Holiday Hours</button>
       <mat-form-field style="visibility: hidden">
         <input
           ngModel
