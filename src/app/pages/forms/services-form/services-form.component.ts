@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Service } from 'src/app/models/services.model';
 import { ServicesService } from 'src/app/services/services.service';
-import { FoodService } from 'src/app/services/food.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Hours } from 'src/app/models/hours.model';
+import {FOOD, SERVICES} from '../../../util/globals';
 
 
 // lot of similar code to events form, I think some of this can be abstracted into one form class
@@ -13,34 +13,33 @@ import { Hours } from 'src/app/models/hours.model';
   templateUrl: './services-form.component.html',
   styleUrls: ['../form-styles.css', './services-form.component.css']
 })
-export class ServicesFormComponent implements OnInit {
+export class ServicesFormComponent implements OnInit, OnDestroy {
   service: Service;
   selectedImage: File;
-  selectedService: string = 'services';
-
-  defaultValue: Service = {
-    name: '',
-    summary: '',
-    image: '',
-    bigLocation: '',
-    tinyLocation: '',
-    email: '',
-    hours: {
-      regularHours: null,
-      holidayHours: []
-    },
-    mainInfo: '',
-    phoneNumber: ''
-  };
+  selectedService = SERVICES;
+  editingMode = false;
+  useExistingImage = false;
 
   constructor(
-    private servicesService: ServicesService, 
-    private foodService: FoodService,
+    private servicesService: ServicesService,
     private router: Router
     ) { }
 
   ngOnInit() {
-    this.service = this.defaultValue;
+    if (this.servicesService.serviceToEdit !== null) {
+      this.service = this.servicesService.serviceToEdit;
+      this.editingMode = true;
+      this.useExistingImage = true;
+      this.selectedService = this.servicesService.typeOfServiceToEdit;
+    } else {
+      this.service = this.servicesService.defaultService;
+    }
+  }
+
+  ngOnDestroy() {
+    this.servicesService.serviceToEdit = null;
+    this.editingMode = false;
+    this.useExistingImage = false;
   }
 
   hoursSelected(hours: Hours[]) {
@@ -51,16 +50,15 @@ export class ServicesFormComponent implements OnInit {
     }
   }
 
+  toggleImage(checked) {
+    this.useExistingImage = checked;
+  }
+
   submit(serviceForm: NgForm) {
     if (serviceForm.valid) {
       // upload service to firebase
-      if (this.selectedService == "food") {
-        this.foodService.addFood(this.service, this.selectedImage)
-          .then(() => this.router.navigate(['']));
-      } else {
-        this.servicesService.addService(this.service, this.selectedImage)
-          .then(() => this.router.navigate(['']));
-      }
+      this.servicesService.addService(this.service, this.selectedImage, this.selectedService)
+        .then(() => this.router.navigate(['']));
     }
   }
 }

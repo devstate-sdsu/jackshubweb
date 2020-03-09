@@ -12,7 +12,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { ServicesFormComponent } from './pages/forms/services-form/services-form.component';
 import { ImageSelectComponent } from './pages/forms/components/image-select/image-select.component';
 import { HoursSelectComponent } from './pages/forms/components/hours-select/hours-select.component';
-import { MatRadioModule } from '@angular/material';
+import { MatRadioModule, MatSelectModule, MatOptionModule } from '@angular/material';
+import { EditServiceComponent } from './pages/edit/edit-service/edit-service.component';
+import { EditFoodComponent } from './pages/edit/edit-food/edit-food.component';
 
 // bring in essential modules here
 @NgModule({
@@ -22,7 +24,9 @@ import { MatRadioModule } from '@angular/material';
     ServicesFormComponent,
     HomeComponent,
     ImageSelectComponent,
-    HoursSelectComponent
+    HoursSelectComponent,
+    EditServiceComponent,
+    EditFoodComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,9 @@ import { MatRadioModule } from '@angular/material';
     MaterialModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSelectModule,
+    MatOptionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

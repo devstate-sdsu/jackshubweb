@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ControlValueAccessor, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {Component, OnInit, Input, ElementRef, ViewChild} from '@angular/core';
+import {ControlValueAccessor, NgModel, NG_VALUE_ACCESSOR, FormGroup} from '@angular/forms';
 import { WeekDay } from '@angular/common';
 import { extractEnumKeys, parseTimeRange, getDates } from 'src/app/util/helpers';
 import { Hours, HoursSet } from 'src/app/models/hours.model';
 import { SatDatepickerRangeValue } from 'saturn-datepicker';
+import {Service} from '../../../../models/services.model';
 
 @Component({
   selector: 'app-hours-select',
@@ -27,7 +28,7 @@ import { SatDatepickerRangeValue } from 'saturn-datepicker';
       <div *ngFor="let day of daySet.days; let j = index" class="flex-row">
         <mat-checkbox
           #check
-          ngModel
+          [ngModel]="boxChecked(i, j)"
           (ngModelChange)="enableChange($event, i, j, timeControl)"
           [disabled]="disabled"
         >{{day.day}}</mat-checkbox>
@@ -35,8 +36,8 @@ import { SatDatepickerRangeValue } from 'saturn-datepicker';
           <mat-label *ngIf="check.checked">Enter Time Range</mat-label>
           <input
             required
+            [ngModel]="convertHoursToString(day.hours)"
             #timeControl="ngModel"
-            ngModel
             (ngModelChange)="valueChange($event, i, j, timeControl)"
             [disabled]="disabled || !check.checked"
             matInput
@@ -60,10 +61,15 @@ import { SatDatepickerRangeValue } from 'saturn-datepicker';
   `
 })
 export class HoursSelectComponent implements OnInit, ControlValueAccessor {
+  timeForm: FormGroup;
   hours: Hours[];
   holidayName: string = '';
 
   @Input() disabled = false;
+  @Input() existingHours;
+  @ViewChild('timeControl', { static: true }) timeControl: NgModel;
+
+
 
   onChange = (hours: Hours[]) => { };
   onTouched = () => { };
@@ -71,15 +77,26 @@ export class HoursSelectComponent implements OnInit, ControlValueAccessor {
   constructor() { }
 
   ngOnInit() {
-    this.hours = [{
-      name: 'Regular',
-      days: extractEnumKeys(WeekDay).map(day => {
-        return {
-          day,
-          hours: []
-        };
-      })
-    }];
+    if (this.existingHours !== null) {
+      this.hours = [this.existingHours.regularHours].concat(this.existingHours.holidayHours);
+      for (let i = 0; i < this.hours.length; i++) {
+        const days = this.hours[i].days;
+        for (let j = 0; j < days.length; j++) {
+          this.enableChange(true, i, j, this.timeControl);
+          this.valueChange(this.convertHoursToString(days[j].hours), i, j, this.timeControl);
+        }
+      }
+    } else {
+      this.hours = [{
+        name: 'Regular',
+        days: extractEnumKeys(WeekDay).map(day => {
+          return {
+            day,
+            hours: []
+          };
+        })
+      }];
+    }
   }
 
   onHolidayDateClose(pickerModel: NgModel) {
@@ -96,6 +113,23 @@ export class HoursSelectComponent implements OnInit, ControlValueAccessor {
       });
       pickerModel.control.reset();
     }
+  }
+
+  boxChecked(i, j) {
+    return this.hours[i].days[j].hours.length > 0;
+  }
+
+  convertHoursToString(hours) {
+    let hoursStr = '';
+    hours.forEach((hour) => {
+      hoursStr += hour.start + ' - ';
+      hoursStr += hour.end;
+      hoursStr += ' ,';
+    });
+    if (!hoursStr.length) {
+      return '';
+    }
+    return hoursStr.slice(0, -2);
   }
 
   removeHoliday(index: number) {
