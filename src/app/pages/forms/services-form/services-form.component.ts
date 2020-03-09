@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Service } from 'src/app/models/services.model';
 import { ServicesService } from 'src/app/services/services.service';
 import { FoodService } from 'src/app/services/food.service';
@@ -13,34 +13,33 @@ import { Hours } from 'src/app/models/hours.model';
   templateUrl: './services-form.component.html',
   styleUrls: ['../form-styles.css', './services-form.component.css']
 })
-export class ServicesFormComponent implements OnInit {
+export class ServicesFormComponent implements OnInit, OnDestroy {
   service: Service;
   selectedImage: File;
-  selectedService: string = 'services';
-
-  defaultValue: Service = {
-    name: '',
-    summary: '',
-    image: '',
-    bigLocation: '',
-    tinyLocation: '',
-    email: '',
-    hours: {
-      regularHours: null,
-      holidayHours: []
-    },
-    mainInfo: '',
-    phoneNumber: ''
-  };
+  selectedService = 'services';
+  editingMode = false;
+  useExistingImage = false;
 
   constructor(
-    private servicesService: ServicesService, 
+    private servicesService: ServicesService,
     private foodService: FoodService,
     private router: Router
     ) { }
 
   ngOnInit() {
-    this.service = this.defaultValue;
+    if (this.servicesService.serviceToEdit !== null) {
+      this.service = this.servicesService.serviceToEdit;
+      this.editingMode = true;
+      this.useExistingImage = true;
+    } else {
+      this.service = this.servicesService.defaultService;
+    }
+  }
+
+  ngOnDestroy() {
+    this.servicesService.serviceToEdit = null;
+    this.editingMode = false;
+    this.useExistingImage = false;
   }
 
   hoursSelected(hours: Hours[]) {
@@ -49,6 +48,10 @@ export class ServicesFormComponent implements OnInit {
       this.service.hours.holidayHours = hours.slice(1);
       console.log(this.service.hours);
     }
+  }
+
+  toggleImage(checked) {
+    this.useExistingImage = checked;
   }
 
   submit(serviceForm: NgForm) {

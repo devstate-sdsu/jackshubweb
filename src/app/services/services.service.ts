@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, Input} from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
@@ -7,6 +7,22 @@ import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({ providedIn: 'root' })
 export class ServicesService {
+  defaultService: Service = {
+    name: '',
+    summary: '',
+    image: '',
+    bigLocation: '',
+    tinyLocation: '',
+    email: '',
+    hours: {
+      regularHours: null,
+      holidayHours: []
+    },
+    mainInfo: '',
+    phoneNumber: ''
+  };
+  serviceToEdit: Service;
+
   constructor(private db: AngularFirestore, private storage: AngularFireStorage) {}
 
   getServices() {
@@ -22,6 +38,18 @@ export class ServicesService {
     })));
   }
 
+  async getServicesForEditing() {
+    const servicesCollection = this.getServicesCollection();
+    const services = [];
+    await servicesCollection.ref.get().then((snapshot) => {
+      snapshot.forEach(doc => services.push({
+        ...doc.data(),
+        docId: doc.id
+      } as Service));
+    });
+    return services;
+  }
+
   async addService(serviceData: Service, imgFile?: File) {
     if (imgFile) {
       // upload image
@@ -30,9 +58,14 @@ export class ServicesService {
       // update image path
       serviceData.image = await snapshot.ref.getDownloadURL();
     }
-
     const qSnapshot = this.getServicesCollection();
-    qSnapshot.add(serviceData);
+    if ('docId' in serviceData) {
+      const docId = serviceData.docId;
+      delete serviceData.docId;
+      await qSnapshot.ref.doc(docId).set(serviceData);
+    } else {
+      await qSnapshot.add(serviceData);
+    }
   }
 
   private getServicesCollection() {

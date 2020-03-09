@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ServicesService } from 'src/app/services/services.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private servicesService: ServicesService,
+  ) { }
 
   ngOnInit() {
+  }
+
+  reset() {
+    this.servicesService.serviceToEdit = null;
   }
 
 }

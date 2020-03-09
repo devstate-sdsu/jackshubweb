@@ -1,4 +1,4 @@
-<form #eventForm="ngForm" (ngSubmit)="submit(eventForm)">
+<form #serviceForm="ngForm" (ngSubmit)="submit(serviceForm)">
   <h1>Submit a Service or Dining Service</h1>
   <mat-radio-group [(ngModel)]="selectedService" name="selectedService">
     <mat-radio-button value="services">Services</mat-radio-button>
@@ -12,7 +12,15 @@
     <mat-label>Summary</mat-label>
     <textarea matInput [(ngModel)]="service.summary" name="summary"></textarea>
   </mat-form-field>
-  <app-image-select [(ngModel)]="selectedImage" name="image"></app-image-select>
+  <div *ngIf="editingMode">
+    <mat-checkbox [checked]="useExistingImage" (change)="toggleImage($event.checked)">Use Existing Image</mat-checkbox>
+    <div *ngIf="!useExistingImage">
+      <app-image-select [(ngModel)]="selectedImage" name="image"></app-image-select>
+    </div>
+  </div>
+  <div *ngIf="!editingMode">
+    <app-image-select [(ngModel)]="selectedImage" name="image"></app-image-select>
+  </div>
   <div class="flex-row">
     <mat-form-field>
       <mat-label>Email</mat-label>
@@ -39,9 +47,9 @@
       <mat-icon matSuffix>my_location</mat-icon>
     </mat-form-field>
   </div>
-  <app-hours-select ngModel (ngModelChange)="hoursSelected($event)" name="hours"></app-hours-select>
+  <app-hours-select [existingHours]="editingMode ? service.hours : null" ngModel (ngModelChange)="hoursSelected($event)" name="hours"></app-hours-select>
   <div class="flex-row">
-    <a mat-stroked-button routerLink="/">Cancel</a>
+    <a mat-stroked-button type="cancel" routerLink="/">Cancel</a>
     <button mat-raised-button type="submit">Submit</button>
   </div>
 </form>
