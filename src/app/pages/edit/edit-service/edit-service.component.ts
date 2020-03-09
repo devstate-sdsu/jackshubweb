@@ -3,6 +3,7 @@ import { Service } from 'src/app/models/services.model';
 import {ServicesService} from '../../../services/services.service';
 import {Router} from '@angular/router';
 import {ServicesFormComponent} from '../../forms/services-form/services-form.component';
+import {SERVICES} from '../../../util/globals';
 
 @Component({
   selector: 'app-edit-service',
@@ -27,5 +28,6 @@ export class EditServiceComponent implements OnInit {
 
   onServiceToEditChange(serviceToEdit) {
     this.servicesService.serviceToEdit = serviceToEdit;
+    this.servicesService.typeOfServiceToEdit = SERVICES;
   }
 }

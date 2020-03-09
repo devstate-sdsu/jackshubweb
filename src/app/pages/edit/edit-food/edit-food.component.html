@@ -1,0 +1,15 @@
+<h4>Select a Dining Service</h4>
+<form>
+  <mat-form-field>
+    <mat-label>Selected Service</mat-label>
+    <mat-select (selectionChange)="onServiceToEditChange($event.value)">
+      <mat-option *ngFor="let service of foodServices" [value]="service">
+        {{service.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="flex-row">
+    <a mat-stroked-button routerLink="/">Cancel</a>
+    <a routerLink="/submit-services"><button mat-raised-button type="button">Edit</button></a>
+  </div>
+</form>

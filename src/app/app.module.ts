@@ -14,6 +14,7 @@ import { ImageSelectComponent } from './pages/forms/components/image-select/imag
 import { HoursSelectComponent } from './pages/forms/components/hours-select/hours-select.component';
 import { MatRadioModule, MatSelectModule, MatOptionModule } from '@angular/material';
 import { EditServiceComponent } from './pages/edit/edit-service/edit-service.component';
+import { EditFoodComponent } from './pages/edit/edit-food/edit-food.component';
 
 // bring in essential modules here
 @NgModule({
@@ -24,7 +25,8 @@ import { EditServiceComponent } from './pages/edit/edit-service/edit-service.com
     HomeComponent,
     ImageSelectComponent,
     HoursSelectComponent,
-    EditServiceComponent
+    EditServiceComponent,
+    EditFoodComponent
   ],
   imports: [
     BrowserModule,

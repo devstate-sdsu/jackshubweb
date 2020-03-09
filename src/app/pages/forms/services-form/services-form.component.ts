@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Service } from 'src/app/models/services.model';
 import { ServicesService } from 'src/app/services/services.service';
-import { FoodService } from 'src/app/services/food.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Hours } from 'src/app/models/hours.model';
+import {FOOD, SERVICES} from '../../../util/globals';
 
 
 // lot of similar code to events form, I think some of this can be abstracted into one form class
@@ -16,13 +16,12 @@ import { Hours } from 'src/app/models/hours.model';
 export class ServicesFormComponent implements OnInit, OnDestroy {
   service: Service;
   selectedImage: File;
-  selectedService = 'services';
+  selectedService = SERVICES;
   editingMode = false;
   useExistingImage = false;
 
   constructor(
     private servicesService: ServicesService,
-    private foodService: FoodService,
     private router: Router
     ) { }
 
@@ -31,6 +30,7 @@ export class ServicesFormComponent implements OnInit, OnDestroy {
       this.service = this.servicesService.serviceToEdit;
       this.editingMode = true;
       this.useExistingImage = true;
+      this.selectedService = this.servicesService.typeOfServiceToEdit;
     } else {
       this.service = this.servicesService.defaultService;
     }
@@ -57,8 +57,8 @@ export class ServicesFormComponent implements OnInit, OnDestroy {
   submit(serviceForm: NgForm) {
     if (serviceForm.valid) {
       // upload service to firebase
-      if (this.selectedService == "food") {
-        this.foodService.addFood(this.service, this.selectedImage)
+      if (this.selectedService === FOOD) {
+        this.servicesService.addFood(this.service, this.selectedImage)
           .then(() => this.router.navigate(['']));
       } else {
         this.servicesService.addService(this.service, this.selectedImage)
