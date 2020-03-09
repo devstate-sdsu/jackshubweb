@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Service } from '../models/services.model';
 import { AngularFireStorage } from '@angular/fire/storage';
-import {SERVICES} from '../util/globals';
+import {FOOD, SERVICES} from '../util/globals';
 
 @Injectable({ providedIn: 'root' })
 export class ServicesService {
@@ -52,7 +52,7 @@ export class ServicesService {
     return services;
   }
 
-  async addService(serviceData: Service, imgFile?: File) {
+  async addService(serviceData: Service, imgFile?: File, typeOfService?: string) {
     if (imgFile) {
       // upload image
       const snapshot = await this.storage.upload(`${environment.servicesThumbnailsPath}/${imgFile.name}`, imgFile);
@@ -60,7 +60,7 @@ export class ServicesService {
       // update image path
       serviceData.image = await snapshot.ref.getDownloadURL();
     }
-    const qSnapshot = this.getServicesCollection();
+    const qSnapshot = typeOfService != null && typeOfService === FOOD ? this.getFoodCollection() : this.getServicesCollection();
     if ('docId' in serviceData) {
       const docId = serviceData.docId;
       delete serviceData.docId;
@@ -97,19 +97,6 @@ export class ServicesService {
       } as Service));
     });
     return food;
-  }
-
-  async addFood(foodData: Service, imgFile?: File) {
-    if (imgFile) {
-      // upload image
-      const snapshot = await this.storage.upload(`${environment.servicesThumbnailsPath}/${imgFile.name}`, imgFile);
-
-      // update image path
-      foodData.image = await snapshot.ref.getDownloadURL();
-    }
-
-    const qSnapshot = this.getFoodCollection();
-    qSnapshot.add(foodData);
   }
 
   private getFoodCollection() {

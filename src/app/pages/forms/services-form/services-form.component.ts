@@ -57,13 +57,8 @@ export class ServicesFormComponent implements OnInit, OnDestroy {
   submit(serviceForm: NgForm) {
     if (serviceForm.valid) {
       // upload service to firebase
-      if (this.selectedService === FOOD) {
-        this.servicesService.addFood(this.service, this.selectedImage)
-          .then(() => this.router.navigate(['']));
-      } else {
-        this.servicesService.addService(this.service, this.selectedImage)
-          .then(() => this.router.navigate(['']));
-      }
+      this.servicesService.addService(this.service, this.selectedImage, this.selectedService)
+        .then(() => this.router.navigate(['']));
     }
   }
 }
